@@ -59,7 +59,7 @@ function Typewriter({ text, delay }: { text: string; delay: number }) {
 
   return (
     <div className="flex items-center min-h-[1.5em]">
-      <p className="text-2xl font-bold uppercase tracking-[0.2em] text-muted-foreground leading-none">
+      <p className="text-lg md:text-2xl font-bold uppercase tracking-[0.2em] text-muted-foreground leading-none">
         {currentText}
       </p>
     </div>
@@ -93,11 +93,11 @@ export default function PortfolioHome() {
                   <motion.h1
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-4xl font-bold uppercase tracking-tighter text-foreground leading-none"
+                    className="text-3xl md:text-4xl font-bold uppercase tracking-tighter text-foreground leading-none"
                   >
                     {profile.name}
                   </motion.h1>
-                  <div className="h-8 flex items-center">
+                  <div className="h-6 md:h-8 flex items-center">
                     <Typewriter text="AI Developer" delay={1200} />
                   </div>
                 </div>
@@ -202,7 +202,7 @@ export default function PortfolioHome() {
                     href={proj.link || "#"}
                     target={proj.link ? "_blank" : undefined}
                     {...sectionReveal}
-                    className="nothing-card group p-8 md:p-12 block cursor-pointer transition-all hover:border-foreground"
+                    className="nothing-card group p-6 md:p-12 block cursor-pointer transition-all hover:border-foreground"
                   >
                     {CardContent}
                   </motion.a>
@@ -213,7 +213,7 @@ export default function PortfolioHome() {
                 <motion.div
                   key={proj.title}
                   {...sectionReveal}
-                  className="nothing-card p-8 md:p-12 opacity-80"
+                  className="nothing-card p-6 md:p-12 opacity-80"
                 >
                   {CardContent}
                 </motion.div>
