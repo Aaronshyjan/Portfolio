@@ -126,7 +126,7 @@ export default function PortfolioHome() {
             <div className="absolute top-1/2 -right-16 w-16 h-px bg-border hidden xl:block opacity-40" />
           </div>
 
-          <div className="md:col-span-5 border border-border bg-background h-56 md:h-80 relative overflow-hidden group">
+          <div className="order-first md:order-last md:col-span-5 border border-border bg-background h-64 md:h-80 relative overflow-hidden group">
             <SystemVisualization />
           </div>
         </section>
