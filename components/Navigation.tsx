@@ -5,9 +5,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { profile } from "@/lib/portfolioData";
 import { ThemeToggle } from "./ThemeToggle";
+import { SnakePuzzle } from "./SnakePuzzle";
+import { Mail, Linkedin, Github, ExternalLink, ShieldCheck, Globe, Cpu, Menu, X } from "lucide-react";
 
 export function Navbar() {
     const [activeSection, setActiveSection] = React.useState("");
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const navItems = [
         { name: "About", href: "#about" },
@@ -43,18 +46,28 @@ export function Navbar() {
         return () => observer.disconnect();
     }, []);
 
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const closeMenu = () => setIsMenuOpen(false);
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-            <div className="w-full px-6 md:px-12 h-16 flex md:grid md:grid-cols-3 items-center justify-between">
+            <div className="w-full px-6 md:px-12 h-16 flex items-center justify-between lg:grid lg:grid-cols-3">
                 {/* Left: Identity */}
-                <div className="flex items-center">
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={toggleMenu}
+                        className="lg:hidden p-2 -ml-2 text-foreground hover:text-accent transition-colors"
+                        aria-label="Toggle Menu"
+                    >
+                        {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
                     <Link href="/" className="font-bold text-sm md:text-base tracking-tight uppercase transition-all hover:tracking-widest whitespace-nowrap">
                         {profile.name} <span className="text-accent font-black tracking-widest">_</span>
                     </Link>
                 </div>
 
                 {/* Center: Navigation (Hidden on mobile) */}
-                <div className="hidden md:flex items-center justify-center gap-12 text-[11px] uppercase tracking-[0.4em] font-bold text-muted-foreground">
+                <div className="hidden lg:flex items-center justify-center gap-10 text-[11px] uppercase tracking-[0.4em] font-bold text-muted-foreground">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
@@ -85,12 +98,40 @@ export function Navbar() {
                     <ThemeToggle />
                 </div>
             </div>
+
+            {/* Mobile Navigation Backdrop */}
+            {isMenuOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 bg-background/60 backdrop-blur-sm z-[-1]"
+                    onClick={closeMenu}
+                />
+            )}
+
+            {/* Mobile Navigation Drawer */}
+            <motion.div
+                initial={false}
+                animate={isMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+                className="lg:hidden overflow-hidden bg-background border-t border-border"
+            >
+                <div className="px-6 py-8 flex flex-col gap-6 font-bold uppercase tracking-[0.3em] text-[10px]">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => {
+                                closeMenu();
+                                setActiveSection(item.href.replace("#", ""));
+                            }}
+                            className={`transition-colors ${activeSection === item.href.replace("#", "") ? "text-accent" : "text-muted-foreground"}`}
+                        >
+                            {item.name}
+                        </Link>
+                    ))}
+                </div>
+            </motion.div>
         </nav>
     );
 }
-
-import { SnakePuzzle } from "./SnakePuzzle";
-import { Mail, Linkedin, Github, ExternalLink, ShieldCheck, Globe, Cpu } from "lucide-react";
 
 export function Footer() {
     return (
