@@ -26,11 +26,24 @@ export function SystemVisualization() {
                 {/* Profile Circle */}
                 <div className="relative">
                     <div className="w-36 h-36 md:w-52 md:h-52 rounded-full border border-border flex items-center justify-center p-[6px] transition-all duration-500 group-hover:border-accent/40 bg-background">
-                        <div className="w-full h-full rounded-full overflow-hidden bg-secondary border border-border/50">
+                        <div className="w-full h-full rounded-full overflow-hidden bg-secondary border border-border/50 relative">
                             <img
                                 src="/profile.jpg"
                                 alt="Profile"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            {/* Scanline Effect */}
+                            <motion.div
+                                className="absolute inset-x-0 h-[10%] bg-accent/20 blur-[2px] pointer-events-none"
+                                animate={{
+                                    top: ["-10%", "110%"],
+                                    opacity: [0, 1, 0]
+                                }}
+                                transition={{
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "linear"
+                                }}
                             />
                         </div>
                     </div>
